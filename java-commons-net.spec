@@ -24,12 +24,12 @@ Jakarta Commons Net to zestaw funkcji narzêdziowych i komponentów
 wielokrotnego u¿ycia, które mog± byæ pomocne w ka¿dym ¶rodowisku Javy.
 
 %prep
-%setup -q -n commons-net-%{version}-src
+%setup -q -n commons-net-%{version}
 
 %build
 cd net
-cp LICENSE.txt ../LICENSE
-ant dist
+cp LICENSE.txt LICENSE
+ant -Dnoget=1 dist
 
 %install
 rm -rf $RPM_BUILD_ROOT
