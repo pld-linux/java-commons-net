@@ -2,7 +2,7 @@ Summary:	Jakarta Commons Net - utility functions and components
 Summary(pl):	Jakarta Commons Net - funkcje i komponenty narzêdziowe
 Name:		jakarta-commons-net
 Version:	1.2.2
-Release:	0.1
+Release:	0.2
 License:	Apache
 Group:		Development/Languages/Java
 Source0:	http://www.apache.org/dist/jakarta/commons/net/source/commons-net-%{version}-src.tar.gz
@@ -28,7 +28,6 @@ wielokrotnego u¿ycia, które mog± byæ pomocne w ka¿dym ¶rodowisku Javy.
 %setup -q -n commons-net-%{version}
 
 %build
-cd net
 cp LICENSE.txt LICENSE
 ant -Dnoget=1 dist
 
