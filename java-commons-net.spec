@@ -9,6 +9,7 @@ Source0:	http://www.apache.org/dist/jakarta/commons/net/source/commons-net-%{ver
 # Source0-md5:	3856e8b3f50bdfffbf186e07c477f73b
 URL:		http://jakarta.apache.org/
 BuildRequires:	jakarta-ant >= 1.5
+BuildRequires:	jaxp
 Requires:	jre
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
