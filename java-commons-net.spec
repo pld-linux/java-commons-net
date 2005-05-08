@@ -1,16 +1,18 @@
 Summary:	Jakarta Commons Net - utility functions and components
 Summary(pl):	Jakarta Commons Net - funkcje i komponenty narzêdziowe
 Name:		jakarta-commons-net
-Version:	1.2.2
-Release:	0.4
-License:	Apache
+Version:	1.4.0
+Release:	1
+License:	Apache v2.0
 Group:		Development/Languages/Java
 Source0:	http://www.apache.org/dist/jakarta/commons/net/source/commons-net-%{version}-src.tar.gz
-# Source0-md5:	3856e8b3f50bdfffbf186e07c477f73b
-Patch0:		%{name}-source1.4.patch
-URL:		http://jakarta.apache.org/
-BuildRequires:	jakarta-ant >= 1.5
+# Source0-md5:	ed49fad1e124cc1a4cbe8aa60ea9782e
+URL:		http://jakarta.apache.org/commons/net/
+BuildRequires:	jakarta-ant(junit) >= 1.5
+BuildRequires:	jakarta-oro >= 2.0.8
 BuildRequires:	jaxp
+BuildRequires:	junit
+Requires:	jakarta-oro >= 2.0.8
 Requires:	jre
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -27,11 +29,13 @@ wielokrotnego u¿ycia, które mog± byæ pomocne w ka¿dym ¶rodowisku Javy.
 
 %prep
 %setup -q -n commons-net-%{version}
-%patch0 -p1
 
 %build
 cp LICENSE.txt LICENSE
-ant -Dnoget=1 -Dnointest=1 dist
+# for tests
+export CLASSPATH=%{_javadir}/oro.jar
+ant dist \
+	-Dnoget=1
 
 %install
 rm -rf $RPM_BUILD_ROOT
