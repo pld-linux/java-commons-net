@@ -8,7 +8,7 @@ Group:		Development/Languages/Java
 Source0:	http://www.apache.org/dist/jakarta/commons/net/source/commons-net-%{version}-src.tar.gz
 # Source0-md5:	ccbb3f67b55e8a7a676499db4386673c
 URL:		http://jakarta.apache.org/commons/net/
-BuildRequires:	jakarta-ant(junit) >= 1.5
+BuildRequires:	ant(junit) >= 1.5
 BuildRequires:	jakarta-oro >= 2.0.8
 BuildRequires:	jaxp
 BuildRequires:	junit
