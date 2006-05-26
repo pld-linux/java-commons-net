@@ -1,0 +1,12 @@
+diff -dur -x '*~' commons-net-1.4.1.orig/build.xml commons-net-1.4.1/build.xml
+--- commons-net-1.4.1.orig/build.xml	2005-12-03 17:05:48.000000000 +0100
++++ commons-net-1.4.1/build.xml	2006-05-26 13:11:25.000000000 +0200
+@@ -58,7 +58,7 @@
+       </fileset>
+     </copy>
+   </target>
+-  <target name="jar" description="o Create the jar" depends="compile,test">
++  <target name="jar" description="o Create the jar" depends="compile">
+     <jar jarfile="${defaulttargetdir}/${final.name}.jar">
+ 	    <fileset dir="${classesdir}">
+ 		    <exclude name="**/examples/**"/>
