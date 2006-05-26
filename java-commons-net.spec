@@ -44,7 +44,6 @@ Jakarta Commons Net documentation.
 %description javadoc -l pl
 Dokumentacja do Jakarta Commons Net.
 
-
 %prep
 %setup -q -n commons-net-%{version}
 %patch0 -p1
