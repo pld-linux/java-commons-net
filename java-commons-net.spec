@@ -1,4 +1,3 @@
-#
 # TODO:
 #	- check why the tests fail and fix that
 #
@@ -6,19 +5,19 @@ Summary:	Jakarta Commons Net - utility functions and components
 Summary(pl):	Jakarta Commons Net - funkcje i komponenty narzêdziowe
 Name:		jakarta-commons-net
 Version:	1.4.1
-Release:	1
+Release:	2
 License:	Apache v2.0
 Group:		Development/Languages/Java
 Source0:	http://www.apache.org/dist/jakarta/commons/net/source/commons-net-%{version}-src.tar.gz
 # Source0-md5:	ccbb3f67b55e8a7a676499db4386673c
 Patch0:		%{name}-disable_tests.patch
 URL:		http://jakarta.apache.org/commons/net/
-BuildRequires:	ant-junit >= 1.5
+BuildRequires:	jakarta-ant >= 1.5
 BuildRequires:	jakarta-oro >= 2.0.8
 BuildRequires:	jaxp
 BuildRequires:	jpackage-utils
-BuildRequires:	rpmbuild(macros) >= 1.300
 BuildRequires:	junit
+BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	jakarta-oro >= 2.0.8
 Requires:	jre
 BuildArch:	noarch
@@ -37,6 +36,7 @@ wielokrotnego u¿ycia, które mog± byæ pomocne w ka¿dym ¶rodowisku Javy.
 Summary:	Jakarta Commons Net documentation
 Summary(pl):	Dokumentacja do Jakarta Commons Net
 Group:		Development/Languages/Java
+Requires:	jpackage-utils
 
 %description javadoc
 Jakarta Commons Net documentation.
@@ -57,7 +57,7 @@ export JAVA_HOME="%{java_home}"
 mkdir -p target/lib
 ln -sf %{_javadir}/oro.jar target/lib
 
-ant dist \
+%ant dist \
 	-Dnoget=1
 
 %install
