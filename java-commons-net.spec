@@ -1,5 +1,6 @@
 # TODO:
 #	- check why the tests fail and fix that
+#	  maybe it depends on network, vserver or so? WFM
 #
 Summary:	Jakarta Commons Net - utility functions and components
 Summary(pl):	Jakarta Commons Net - funkcje i komponenty narzêdziowe
