@@ -3,7 +3,7 @@
 #	  maybe it depends on network, vserver or so? WFM
 #
 Summary:	Jakarta Commons Net - utility functions and components
-Summary(pl):	Jakarta Commons Net - funkcje i komponenty narzêdziowe
+Summary(pl.UTF-8):   Jakarta Commons Net - funkcje i komponenty narzÄ™dziowe
 Name:		jakarta-commons-net
 Version:	1.4.1
 Release:	3
@@ -29,20 +29,20 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Jakarta Commons Net is a set of utility functions and reusable
 components that should be a help in any Java environment.
 
-%description -l pl
-Jakarta Commons Net to zestaw funkcji narzêdziowych i komponentów
-wielokrotnego u¿ycia, które mog± byæ pomocne w ka¿dym ¶rodowisku Javy.
+%description -l pl.UTF-8
+Jakarta Commons Net to zestaw funkcji narzÄ™dziowych i komponentÃ³w
+wielokrotnego uÅ¼ycia, ktÃ³re mogÄ… byÄ‡ pomocne w kaÅ¼dym Å›rodowisku Javy.
 
 %package javadoc
 Summary:	Jakarta Commons Net documentation
-Summary(pl):	Dokumentacja do Jakarta Commons Net
+Summary(pl.UTF-8):   Dokumentacja do Jakarta Commons Net
 Group:		Development/Languages/Java
 Requires:	jpackage-utils
 
 %description javadoc
 Jakarta Commons Net documentation.
 
-%description javadoc -l pl
+%description javadoc -l pl.UTF-8
 Dokumentacja do Jakarta Commons Net.
 
 %prep
