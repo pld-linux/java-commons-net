@@ -3,7 +3,7 @@
 #	  maybe it depends on network, vserver or so? WFM
 #
 Summary:	Jakarta Commons Net - utility functions and components
-Summary(pl.UTF-8):   Jakarta Commons Net - funkcje i komponenty narzędziowe
+Summary(pl.UTF-8):	Jakarta Commons Net - funkcje i komponenty narzędziowe
 Name:		jakarta-commons-net
 Version:	1.4.1
 Release:	3
@@ -35,7 +35,7 @@ wielokrotnego użycia, które mogą być pomocne w każdym środowisku Javy.
 
 %package javadoc
 Summary:	Jakarta Commons Net documentation
-Summary(pl.UTF-8):   Dokumentacja do Jakarta Commons Net
+Summary(pl.UTF-8):	Dokumentacja do Jakarta Commons Net
 Group:		Development/Languages/Java
 Requires:	jpackage-utils
 
