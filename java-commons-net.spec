@@ -4,11 +4,11 @@
 #
 Summary:	Jakarta Commons Net - utility functions and components
 Summary(pl.UTF-8):	Jakarta Commons Net - funkcje i komponenty narzędziowe
-Name:		jakarta-commons-net
+Name:		java-commons-net
 Version:	1.4.1
 Release:	3
 License:	Apache v2.0
-Group:		Development/Languages/Java
+Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/jakarta/commons/net/source/commons-net-%{version}-src.tar.gz
 # Source0-md5:	ccbb3f67b55e8a7a676499db4386673c
 Patch0:		%{name}-disable_tests.patch
@@ -22,7 +22,6 @@ BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	jakarta-oro >= 2.0.8
 Requires:	jre
 BuildArch:	noarch
-ExclusiveArch:	i586 i686 pentium3 pentium4 athlon %{x8664} noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -36,7 +35,7 @@ wielokrotnego użycia, które mogą być pomocne w każdym środowisku Javy.
 %package javadoc
 Summary:	Jakarta Commons Net documentation
 Summary(pl.UTF-8):	Dokumentacja do Jakarta Commons Net
-Group:		Development/Languages/Java
+Group:		Documentation
 Requires:	jpackage-utils
 
 %description javadoc
