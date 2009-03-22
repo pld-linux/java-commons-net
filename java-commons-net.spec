@@ -1,26 +1,28 @@
-# TODO:
-#	- check why the tests fail and fix that
-#	  maybe it depends on network, vserver or so? WFM
-#
-Summary:	Jakarta Commons Net - utility functions and components
-Summary(pl.UTF-8):	Jakarta Commons Net - funkcje i komponenty narzędziowe
+%bcond_without	javadoc		# don't build javadoc
+%bcond_with	java_sun	# use java_sun
+
+%include        /usr/lib/rpm/macros.java
+
+%define		srcname		commons-net
+Summary:	Commons Net - utility functions and components
+Summary(pl.UTF-8):	Commons Net - funkcje i komponenty narzędziowe
 Name:		java-commons-net
-Version:	1.4.1
-Release:	3
+Version:	2.0
+Release:	0.1
 License:	Apache v2.0
 Group:		Libraries/Java
-Source0:	http://www.apache.org/dist/jakarta/commons/net/source/commons-net-%{version}-src.tar.gz
-# Source0-md5:	ccbb3f67b55e8a7a676499db4386673c
-Patch0:		%{name}-disable_tests.patch
-URL:		http://jakarta.apache.org/commons/net/
+Source0:	http://www.apache.org/dist/commons/net/source/commons-net-%{version}-src.tar.gz
+# Source0-md5:	583630202369df3cf996cbdba4d8634b
+URL:		http://commons.apache.org/net/
 BuildRequires:	ant >= 1.5
 BuildRequires:	jakarta-oro >= 2.0.8
-BuildRequires:	jaxp
+#BuildRequires:	jaxp
 BuildRequires:	jpackage-utils
 BuildRequires:	junit
 BuildRequires:	rpmbuild(macros) >= 1.300
+Provides:	jakarta-commons-net
+Obsoletes:	jakarta-commons-net
 Requires:	jakarta-oro >= 2.0.8
-Requires:	jre
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -37,6 +39,7 @@ Summary:	Jakarta Commons Net documentation
 Summary(pl.UTF-8):	Dokumentacja do Jakarta Commons Net
 Group:		Documentation
 Requires:	jpackage-utils
+Obsoletes:	jakarta-commons-net-javadoc
 
 %description javadoc
 Jakarta Commons Net documentation.
@@ -45,38 +48,52 @@ Jakarta Commons Net documentation.
 Dokumentacja do Jakarta Commons Net.
 
 %prep
-%setup -q -n commons-net-%{version}
-%patch0 -p1
+%setup -q -n commons-net-%{version}-src
 
 %build
 cp LICENSE.txt LICENSE
 export CLASSPATH="`build-classpath oro junit`"
 export JAVA_HOME="%{java_home}"
 
-# needed for tests, for some reason they ignore $CLASSPATH
-mkdir -p target/lib
-ln -sf %{_javadir}/oro.jar target/lib
+mkdir build
 
-%ant dist \
-	-Dnoget=1
+%javac \
+    -classpath $CLASSPATH \
+    -d build \
+    -source 1.5 \
+    -target 1.5 \
+    $(find src/main/java/org -name '*.java')
+
+%if %{with javadoc}
+%javadoc -d apidocs \
+	org.apache.commons.neti \
+	$(find src/main/java/org -name '*.java')
+%endif
+
+%jar -cf %{srcname}-%{version}.jar -C build .
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_javadir},%{_javadocdir}/%{name}-%{version}}
+install -d $RPM_BUILD_ROOT{%{_javadir},%{_javadocdir}/%{srcname}-%{version}}
 
-install dist/*.jar $RPM_BUILD_ROOT%{_javadir}
-ln -sf commons-net-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/commons-net.jar
+install %{srcname}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}
+ln -sf %{srcname}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}.jar
 
-cp -R dist/docs/api/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+%if %{with javadoc}
+cp -R apidocs/* $RPM_BUILD_ROOT%{_javadocdir}/%{srcname}-%{version}
+ln -s %{srcname}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{srcname} # ghost symlink
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc dist/LICENSE
 %{_javadir}/*.jar
 
+%if %{with javadoc}
 %files javadoc
 %defattr(644,root,root,755)
-%doc %{_javadocdir}/%{name}-%{version}
+%{_javadocdir}/%{srcname}-%{version}
+%ghost %{_javadocdir}/%{srcname}
+%endif
