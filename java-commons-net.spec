@@ -1,3 +1,6 @@
+# TODO:
+# - does not build with java_gcj_compat
+
 %bcond_without	javadoc		# don't build javadoc
 %bcond_with	java_sun	# use java_sun
 
