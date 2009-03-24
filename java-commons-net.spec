@@ -19,13 +19,16 @@ Source0:	http://www.apache.org/dist/commons/net/source/commons-net-%{version}-sr
 URL:		http://commons.apache.org/net/
 BuildRequires:	ant >= 1.5
 BuildRequires:	jakarta-oro >= 2.0.8
+%{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
+%{!?with_java_sun:BuildRequires:	java-gnu-classpath}
+%{?with_java:BuildRequires:	java-sun}
 #BuildRequires:	jaxp
 BuildRequires:	jpackage-utils
 BuildRequires:	junit
 BuildRequires:	rpmbuild(macros) >= 1.300
+Requires:	jakarta-oro >= 2.0.8
 Provides:	jakarta-commons-net
 Obsoletes:	jakarta-commons-net
-Requires:	jakarta-oro >= 2.0.8
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -54,22 +57,32 @@ Dokumentacja do Jakarta Commons Net.
 %setup -q -n commons-net-%{version}-src
 
 %build
-cp LICENSE.txt LICENSE
-export CLASSPATH="`build-classpath oro junit`"
+
+# java.util.regexp from libgcj-4.3 does not provide Mather.toMatchResult()
+# method, so we have to use one provided by glibj (from gnu-classpath).
+# toMatchResult is implemented in libgcj-4.4, so most probably, when gcc-4.4
+# will be released, we can can drop gnu-classpath dependency
+%if %{without java_sun}
+  glibj_jar=$(find-jar glibj)
+%endif
+
+CLASSPATH=$CLASSPATH:$(build-classpath oro junit)
+export CLASSPATH
 export JAVA_HOME="%{java_home}"
 
 mkdir build
 
 %javac \
-    -classpath $CLASSPATH \
-    -d build \
-    -source 1.5 \
-    -target 1.5 \
-    $(find src/main/java/org -name '*.java')
+	-classpath $CLASSPATH \
+	-d build \
+	-source 1.5 \
+	-target 1.5 \
+	%{!?with_java_sun:-bootclasspath "$glibj_jar"} \
+	$(find src/main/java/org -name '*.java')
 
 %if %{with javadoc}
 %javadoc -d apidocs \
-	org.apache.commons.neti \
+	%{?with_java_sun:org.apache.commons.net} \
 	$(find src/main/java/org -name '*.java')
 %endif
 
