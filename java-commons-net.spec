@@ -21,7 +21,7 @@ BuildRequires:	ant >= 1.5
 BuildRequires:	jakarta-oro >= 2.0.8
 %{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
 %{!?with_java_sun:BuildRequires:	java-gnu-classpath}
-%{?with_java:BuildRequires:	java-sun}
+%{?with_java_sun:BuildRequires:	java-sun}
 #BuildRequires:	jaxp
 BuildRequires:	jpackage-utils
 BuildRequires:	junit
