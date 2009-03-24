@@ -103,6 +103,9 @@ ln -s %{srcname}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{srcname} # ghost sym
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post javadoc
+ln -nfs %{srcname}-%{version} %{_javadocdir}/%{srcname}
+
 %files
 %defattr(644,root,root,755)
 %{_javadir}/*.jar
