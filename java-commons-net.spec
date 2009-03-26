@@ -62,6 +62,7 @@ Dokumentacja do Jakarta Commons Net.
 # method, so we have to use one provided by glibj (from gnu-classpath).
 # toMatchResult is implemented in libgcj-4.4, so most probably, when gcc-4.4
 # will be released, we can can drop gnu-classpath dependency
+
 %if %{without java_sun}
   glibj_jar=$(find-jar glibj)
 %endif
@@ -70,7 +71,7 @@ CLASSPATH=$CLASSPATH:$(build-classpath oro junit)
 export CLASSPATH
 export JAVA_HOME="%{java_home}"
 
-mkdir build
+install -d build
 
 %javac \
 	-classpath $CLASSPATH \
