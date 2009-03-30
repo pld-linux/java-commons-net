@@ -1,0 +1,83 @@
+<project name="commons-net" default="jar" basedir=".">
+    <description>
+        PLD build file for commons-net
+    </description>
+
+  <!-- set global properties for this build -->
+  <property name="src" location="src/main/java"/>
+  <property name="build" location="build"/>
+  <property name="dist"  location="dist"/>
+  <property name="tests" location="src/test/java"/>
+  <property name="tests.reports" location="reports"/>
+  <property name="tests.build" location="tests-build"/>
+  <property name="source" value="1.5"/>
+  <property name="target" value="1.5"/>
+  <property name="pname" value="commons-net"/>
+  <property name="compiler" value="sun"/>
+
+  <target name="clean" description="clean up" >
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+  </target>
+
+  <target name="init">
+    <tstamp/>
+    <mkdir dir="${build}"/>
+    <mkdir dir="${tests.reports}"/>
+    <mkdir dir="${tests.build}"/>
+  </target>
+
+  <target name="compile-sun" depends="init" description="compile the source">
+    <javac srcdir="${src}"
+      destdir="${build}"
+      source="${source}"
+      target="${target}">
+    </javac>
+  </target>
+
+  <target name="compile-gcj" depends="init" description="compile the source">
+    <javac srcdir="${src}"
+      destdir="${build}"
+      source="${source}"
+      target="${target}">
+      <compilerarg value="-bootclasspath"/>
+      <compilerarg value="${bootstrap}"/>
+    </javac>
+  </target>
+
+  <target name="jar" description="create the jar file" >
+    <mkdir dir="${dist}"/>
+    <jar jarfile="${dist}/${pname}-${version}.jar" basedir="${build}"/>
+  </target>
+
+  <!-- TESTS -->
+
+  <path id="tests.path">
+    <pathelement location="${build}"/>
+    <pathelement location="${tests.build}"/>
+  </path>
+
+  <target name="tests-compile-sun" depends="init" description="compile the tests" >
+    <javac srcdir="${src}" destdir="${tests.build}"/>
+  </target>
+
+  <target name="tests-compile-gcj" depends="init" description="compile the tests" >
+    <javac srcdir="${src}" destdir="${tests.build}">
+      <compilerarg value="-bootclasspath"/>
+      <compilerarg value="${bootstrap}"/>
+    </javac>
+  </target>
+
+  <target name="tests" description="run the tests" >
+    <junit printsummary="yes" haltonfailure="yes">
+      <classpath refid="tests.path"/>
+      <formatter type="plain"/>
+      <batchtest fork="yes" todir="${tests.reports}">
+        <fileset dir="${tests}">
+          <include name="**/*Test*.java"/>
+          <exclude name="**/AllTests.java"/>
+        </fileset>
+      </batchtest>
+    </junit>
+  </target>
+</project>
