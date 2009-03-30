@@ -1,8 +1,11 @@
-# TODO:
-# - does not build with java_gcj_compat
-
 %bcond_without	javadoc		# don't build javadoc
-%bcond_with	java_sun	# use java_sun
+%bcond_without	tests		# build and run unit tests
+
+%if "%{pld_release}" == "ti"
+%bcond_without java_sun        # build with gcj
+%else
+%bcond_with    java_sun        # build with java-sun
+%endif
 
 %include        /usr/lib/rpm/macros.java
 
@@ -16,15 +19,17 @@ License:	Apache v2.0
 Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/commons/net/source/commons-net-%{version}-src.tar.gz
 # Source0-md5:	583630202369df3cf996cbdba4d8634b
+Source1:	java-commons-net-build.xml
 URL:		http://commons.apache.org/net/
-BuildRequires:	ant >= 1.5
+BuildRequires:	ant
+%{?with_tests:BuildRequires:	ant-junit}
 BuildRequires:	jakarta-oro >= 2.0.8
 %{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
 %{!?with_java_sun:BuildRequires:	java-gnu-classpath}
 %{?with_java_sun:BuildRequires:	java-sun}
-#BuildRequires:	jaxp
 BuildRequires:	jpackage-utils
-BuildRequires:	junit
+%{?with_tests:BuildRequires:	junit}
+BuildRequires:	rpm >= 4.4.9-56
 BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	jakarta-oro >= 2.0.8
 Provides:	jakarta-commons-net
@@ -58,28 +63,35 @@ Dokumentacja do Jakarta Commons Net.
 
 %build
 
+cp %{SOURCE1} build.xml
+
 # java.util.regexp from libgcj-4.3 does not provide Mather.toMatchResult()
 # method, so we have to use one provided by glibj (from gnu-classpath).
 # toMatchResult is implemented in libgcj-4.4, so most probably, when gcc-4.4
-# will be released, we can can drop gnu-classpath dependency
+# will be released, we can drop gnu-classpath dependency
 
 %if %{without java_sun}
   glibj_jar=$(find-jar glibj)
 %endif
 
-CLASSPATH=$CLASSPATH:$(build-classpath oro junit)
-export CLASSPATH
-export JAVA_HOME="%{java_home}"
+%if %{with java_sun}
+%define compiler sun
+%else
+%define compiler gcj
+%endif
 
-install -d build
+CLASSPATH=$(build-classpath oro)
 
-%javac \
-	-classpath $CLASSPATH \
-	-d build \
-	-source 1.5 \
-	-target 1.5 \
-	%{!?with_java_sun:-bootclasspath "$glibj_jar"} \
-	$(find src/main/java/org -name '*.java')
+%ant clean compile-%{compiler} jar \
+	-Dversion=%{version} \
+	%{!?with_java_sun:-Dbootstrap=$glibj_jar} \
+
+%if %{with tests}
+CLASSPATH=$CLASSPATH:$(build-classpath junit)
+%ant tests-compile-%{compiler} tests \
+	-Dversion=%{version} \
+	%{!?with_java_sun:-Dbootstrap=$glibj_jar} \
+%endif
 
 %if %{with javadoc}
 %javadoc -d apidocs \
