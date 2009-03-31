@@ -58,11 +58,13 @@
   </path>
 
   <target name="tests-compile-sun" depends="init" description="compile the tests" >
-    <javac srcdir="${src}" destdir="${tests.build}"/>
+    <classpath refid="tests.path"/>
+    <javac srcdir="${tests}" destdir="${tests.build}"/>
   </target>
 
   <target name="tests-compile-gcj" depends="init" description="compile the tests" >
-    <javac srcdir="${src}" destdir="${tests.build}">
+    <javac srcdir="${tests}" destdir="${tests.build}">
+      <classpath refid="tests.path"/>
       <compilerarg value="-bootclasspath"/>
       <compilerarg value="${bootstrap}"/>
     </javac>
