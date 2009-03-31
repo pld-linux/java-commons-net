@@ -58,8 +58,9 @@
   </path>
 
   <target name="tests-compile-sun" depends="init" description="compile the tests" >
-    <classpath refid="tests.path"/>
-    <javac srcdir="${tests}" destdir="${tests.build}"/>
+    <javac srcdir="${tests}" destdir="${tests.build}">
+      <classpath refid="tests.path"/>
+    </javac>
   </target>
 
   <target name="tests-compile-gcj" depends="init" description="compile the tests" >
