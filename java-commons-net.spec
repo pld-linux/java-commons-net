@@ -23,13 +23,12 @@ License:	Apache v2.0
 Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/jakarta/commons/net/source/commons-net-%{version}-src.tar.gz
 # Source0-md5:	ccbb3f67b55e8a7a676499db4386673c
-Patch0:		%{srcname}-disable_tests.patch
+Patch0:		jakarta-%{srcname}-disable_tests.patch
 URL:		http://jakarta.apache.org/commons/net/
 BuildRequires:	ant >= 1.5
 %{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
 %{?with_java_sun:BuildRequires:	java-sun}
 BuildRequires:	jakarta-oro >= 2.0.8
-BuildRequires:	jaxp
 BuildRequires:	jpackage-utils
 BuildRequires:	junit
 BuildRequires:	rpm >= 4.4.9-56
@@ -85,7 +84,7 @@ ln -sf commons-net-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/commons-net.jar
 # javadoc
 %if %{with javadoc}
 install -d $RPM_BUILD_ROOT%{_javadocdir}/%{srcname}-%{version}
-cp -R dist/docs/api/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+cp -R dist/docs/api/* $RPM_BUILD_ROOT%{_javadocdir}/%{srcname}-%{version}
 ln -s %{srcname}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{srcname} # ghost symlink
 %endif
 
