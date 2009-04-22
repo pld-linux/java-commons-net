@@ -1,0 +1,8 @@
+- unify javadocs
+- unify jdk bconds
+- build-classpath error should break rpmbuild
+- CLASSPATH do not have to be exported
+- branched as JAVA_COMMONS_NET_1_4 (HEAD is 2.0 now, and it does not build)
+- it is no longer part of jakarta project (fixed descriptions)
+- s/jakarta/java/ in BRs
+- rel 4
