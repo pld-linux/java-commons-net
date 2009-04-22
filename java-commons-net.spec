@@ -28,7 +28,7 @@ URL:		http://jakarta.apache.org/commons/net/
 BuildRequires:	ant >= 1.5
 %{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
 %{?with_java_sun:BuildRequires:	java-sun}
-BuildRequires:	jakarta-oro >= 2.0.8
+BuildRequires:	java-oro >= 2.0.8
 BuildRequires:	jpackage-utils
 BuildRequires:	junit
 BuildRequires:	rpm >= 4.4.9-56
