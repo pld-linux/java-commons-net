@@ -31,7 +31,7 @@ BuildRequires:	jpackage-utils
 %{?with_tests:BuildRequires:	junit}
 BuildRequires:	rpm >= 4.4.9-56
 BuildRequires:	rpmbuild(macros) >= 1.300
-Requires:	jakarta-oro >= 2.0.8
+Requires:	java-oro >= 2.0.8
 Provides:	jakarta-commons-net
 Obsoletes:	jakarta-commons-net
 BuildArch:	noarch
