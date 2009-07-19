@@ -18,7 +18,7 @@ Summary:	Commons Net - utility functions and components
 Summary(pl.UTF-8):	Commons Net - funkcje i komponenty narzędziowe
 Name:		java-commons-net
 Version:	1.4.1
-Release:	4
+Release:	5
 License:	Apache v2.0
 Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/jakarta/commons/net/source/commons-net-%{version}-src.tar.gz
@@ -27,30 +27,33 @@ Patch0:		jakarta-%{srcname}-disable_tests.patch
 URL:		http://jakarta.apache.org/commons/net/
 BuildRequires:	ant >= 1.5
 %{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
-%{?with_java_sun:BuildRequires:	java-sun}
 BuildRequires:	java-oro >= 2.0.8
+%{?with_java_sun:BuildRequires:	java-sun}
 BuildRequires:	jpackage-utils
 BuildRequires:	junit
 BuildRequires:	rpm >= 4.4.9-56
 BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	java-oro >= 2.0.8
 Requires:	jre
+Provides:	jakarta-commons-net
+Obsoletes:	jakarta-commons-net
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Commons Net is a set of utility functions and reusable components that should
-be a help in any Java environment.
+Commons Net is a set of utility functions and reusable components that
+should be a help in any Java environment.
 
 %description -l pl.UTF-8
-Commons Net to zestaw funkcji narzędziowych i komponentów wielokrotnego
-użycia, które mogą być pomocne w każdym środowisku Javy.
+Commons Net to zestaw funkcji narzędziowych i komponentów
+wielokrotnego użycia, które mogą być pomocne w każdym środowisku Javy.
 
 %package javadoc
 Summary:	Commons Net documentation
 Summary(pl.UTF-8):	Dokumentacja do Commons Net
 Group:		Documentation
 Requires:	jpackage-utils
+Obsoletes:	jakarta-commons-net-javadoc
 
 %description javadoc
 Commons Net documentation.
