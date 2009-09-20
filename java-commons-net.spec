@@ -1,5 +1,11 @@
+# NOTE:
+# - ftp timezone test is broken. It depends on file timestamps on some remote
+#   ftp machine. But these files have changed since this test was written!!!
+#   If you want to perform tests and you now what are you doing, uncomment the
+#   following line:
+#%%bcond_without	tests		# These tests are broken!
+
 %bcond_without	javadoc		# don't build javadoc
-%bcond_without	tests		# build and run unit tests
 
 %if "%{pld_release}" == "ti"
 %bcond_without java_sun        # build with gcj
@@ -14,7 +20,7 @@ Summary:	Commons Net - utility functions and components
 Summary(pl.UTF-8):	Commons Net - funkcje i komponenty narzędziowe
 Name:		java-commons-net
 Version:	2.0
-Release:	0.1
+Release:	1
 License:	Apache v2.0
 Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/commons/net/source/commons-net-%{version}-src.tar.gz
