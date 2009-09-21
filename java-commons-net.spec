@@ -1,10 +1,8 @@
 # NOTE:
 # - ftp timezone test is broken. It depends on file timestamps on some remote
 #   ftp machine. But these files have changed since this test was written!!!
-#   If you want to perform tests and you now what are you doing, uncomment the
-#   following line:
-#%%bcond_without	tests		# These tests are broken!
 
+%bcond_with		tests		# tests are broken. see note above.
 %bcond_without	javadoc		# don't build javadoc
 
 %if "%{pld_release}" == "ti"
@@ -13,9 +11,8 @@
 %bcond_with    java_sun        # build with java-sun
 %endif
 
-%include        /usr/lib/rpm/macros.java
-
-%define		srcname		commons-net
+%include	/usr/lib/rpm/macros.java
+%define		srcname	commons-net
 Summary:	Commons Net - utility functions and components
 Summary(pl.UTF-8):	Commons Net - funkcje i komponenty narzędziowe
 Name:		java-commons-net
@@ -25,13 +22,13 @@ License:	Apache v2.0
 Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/commons/net/source/commons-net-%{version}-src.tar.gz
 # Source0-md5:	583630202369df3cf996cbdba4d8634b
-Source1:	java-commons-net-build.xml
+Source1:	%{name}-build.xml
 URL:		http://commons.apache.org/net/
 BuildRequires:	ant
 %{?with_tests:BuildRequires:	ant-junit}
-BuildRequires:	jakarta-oro >= 2.0.8
 %{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
 %{!?with_java_sun:BuildRequires:	java-gnu-classpath}
+BuildRequires:	java-oro >= 2.0.8
 %{?with_java_sun:BuildRequires:	java-sun}
 BuildRequires:	jpackage-utils
 %{?with_tests:BuildRequires:	junit}
