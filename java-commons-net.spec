@@ -5,12 +5,6 @@
 %bcond_with		tests		# tests are broken. see note above.
 %bcond_without	javadoc		# don't build javadoc
 
-%if "%{pld_release}" == "ti"
-%bcond_without java_sun        # build with gcj
-%else
-%bcond_with    java_sun        # build with java-sun
-%endif
-
 %include	/usr/lib/rpm/macros.java
 %define		srcname	commons-net
 Summary:	Commons Net - utility functions and components
@@ -26,13 +20,11 @@ Source1:	%{name}-build.xml
 URL:		http://commons.apache.org/net/
 BuildRequires:	ant
 %{?with_tests:BuildRequires:	ant-junit}
-%{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
 %{!?with_java_sun:BuildRequires:	java-gnu-classpath}
 BuildRequires:	java-oro >= 2.0.8
-%{?with_java_sun:BuildRequires:	java-sun}
+BuildRequires:	jdk
 BuildRequires:	jpackage-utils
 %{?with_tests:BuildRequires:	junit}
-BuildRequires:	rpm >= 4.4.9-56
 BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	java-oro >= 2.0.8
 Provides:	jakarta-commons-net
