@@ -25,6 +25,7 @@ BuildRequires:	java-oro >= 2.0.8
 BuildRequires:	jdk
 BuildRequires:	jpackage-utils
 %{?with_tests:BuildRequires:	junit}
+BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	java-oro >= 2.0.8
 Provides:	jakarta-commons-net
