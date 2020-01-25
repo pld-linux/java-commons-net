@@ -5,7 +5,6 @@
 %bcond_with		tests		# tests are broken. see note above.
 %bcond_without	javadoc		# don't build javadoc
 
-%include	/usr/lib/rpm/macros.java
 %define		srcname	commons-net
 Summary:	Commons Net - utility functions and components
 Summary(pl.UTF-8):	Commons Net - funkcje i komponenty narzędziowe
